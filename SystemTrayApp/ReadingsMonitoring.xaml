@@ -1,0 +1,33 @@
+﻿<Page x:Class="SystemTrayApp.ReadingsMonitoring"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      d:DesignHeight="430" d:DesignWidth="480"
+      Title="ReadingsMonitoring" ShowsNavigationUI="False" Background="#80000000" >
+
+
+    <Grid Margin="10,10,10,10" Height="410" Width="460">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="102" ></ColumnDefinition>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
+            <ColumnDefinition Width="102" ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            
+            <RowDefinition Height="AUTO"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBox  x:Name="Logs" Grid.Row="0" IsReadOnly="True" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="2" MaxHeight="380" TextOptions.TextFormattingMode="Ideal"  HorizontalAlignment="Stretch"  Height="auto" Width="auto" Background="White"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" ></TextBox>
+        <DatePicker Name="LogDatePick"  Width="auto" Height="auto" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Collapsed" Background="#80000000" MouseLeave="LogDatePick_MouseLeave" SelectedDateChanged="LogDatePick_SelectedDateChanged"  ></DatePicker>
+        <Button x:Name="Previous" Content="&lt;--" Grid.Column="0" HorizontalAlignment="Left" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2" Height="25" Width="102" Click="Previous_Click" ></Button>
+        <TextBlock x:Name="LogDate"  Height="25" Grid.Column="1" Width="auto" VerticalAlignment="Bottom" TextAlignment="Center" Grid.Row="2"  Foreground="White" Background="#80000000"  MouseEnter="LogDate_MouseEnter" 
+                   Text="{Binding ElementName=LogDatePick,Path=SelectedDate,StringFormat= dd-MM-yyyy}" >
+
+        </TextBlock>
+        <Button x:Name="Next" Content="--&gt;" Grid.Column="2" HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Bottom" Grid.Row="2" Height="25" Width="102" Click="Next_Click" ></Button>
+    </Grid>
+
+</Page>

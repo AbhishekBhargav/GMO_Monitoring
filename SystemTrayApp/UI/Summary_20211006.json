@@ -1,0 +1,21 @@
+{
+    "EventList":  {
+                      "ReadingCollection":  {
+                                                "49A07F18FD6B4E039E076FC6A092FD06":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-23T00:10:17.5723435+05:30",
+                                                                                         "End_time":  "2021-09-23T00:55:23.3913557+05:30"
+                                                                                     },
+                                                "5EFED646ADA04591A3B95BBDD36E7363":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-23T03:00:22.8701800+05:30",
+                                                                                         "End_time":  "2021-09-23T03:37:21.8914705+05:30"
+                                                                                     },
+                                                "B06CE870099F4AABA1B9997D0E4644F2":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-23T06:00:18.5259843+05:30",
+                                                                                         "End_time":  "2021-09-23T06:22:30.7390051+05:30"
+                                                                                     }
+                                            }
+                  }
+}

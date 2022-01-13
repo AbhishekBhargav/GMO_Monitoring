@@ -1,0 +1,31 @@
+{
+    "EventList":  {
+                      "ReadingCollection":  {
+                                                "49A07F18FD6B4E039E076FC6A092FD06":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-20T00:10:22.4672923+05:30",
+                                                                                         "End_time":  "2021-09-20T01:10:01.1913765+05:30"
+                                                                                     },
+                                                "5EFED646ADA04591A3B95BBDD36E7363":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-20T03:00:22.7976774+05:30",
+                                                                                         "End_time":  "2021-09-20T03:33:02.5707638+05:30"
+                                                                                     },
+                                                "B06CE870099F4AABA1B9997D0E4644F2":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-20T06:00:28.2408616+05:30",
+                                                                                         "End_time":  "2021-09-20T07:00:00.3675502+05:30"
+                                                                                     },
+                                                "9C402BBCB5804E37A6B54F1004D9DD97":  {
+                                                                                         "Status":  "Stop_Fail",
+                                                                                         "Start_time":  "2021-09-20T13:15:21.9525301+05:30",
+                                                                                         "End_time":  "NULL"
+                                                                                     },
+                                                "916732EADC7645BEBF30477AF0977390":  {
+                                                                                         "Status":  "Completed",
+                                                                                         "Start_time":  "2021-09-20T17:10:19.8736009+05:30",
+                                                                                         "End_time":  "2021-09-20T17:30:25.0731065+05:30"
+                                                                                     }
+                                            }
+                  }
+}
