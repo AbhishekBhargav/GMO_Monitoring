@@ -3,13 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SystemTrayApp.VM"
+        xmlns:local="clr-namespace:SystemTrayApp"
         mc:Ignorable="d"
         xmlns:TextOnAPath="clr-namespace:TextOnAPath;assembly=TextOnAPath"
-        Name="Main"
+        Name="Main"    
+        Title="MainWindow" Height="480" Width="480" MinWidth="480" MinHeight="480" ResizeMode="CanResize"  Background="Transparent"  WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
 
 
-        Title="MainWindow" Height="480" Width="480" ResizeMode="CanResize"  Background="Transparent"  WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
+    <Window.Resources>
+        <vm:Detail_Log_ViewModel x:Key="DLVM"/>
+        <local:ReadingsMonitoring x:Key="RcM"/>
+    </Window.Resources>
 
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+        CaptionHeight="0"
+        ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition x:Name="titlebar" Height="20"></RowDefinition>
@@ -17,25 +28,44 @@
             <RowDefinition x:Name="Frame" Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0" >
+            <Grid x:Name="sp">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition x:Name="Min" Width="0.45*"></ColumnDefinition>
+                    <ColumnDefinition x:Name="drag" Width="0.1*"></ColumnDefinition>
+                    <ColumnDefinition x:Name="Clo" Width="0.45*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-        <Rectangle x:Name="Minimise" Grid.Column="0" Grid.Row="0" Width="220" Height="20" HorizontalAlignment="Left" Fill="Aqua"  MouseLeftButtonDown="Minimise_MouseLeftButtonDown"
+                <Rectangle x:Name="Minimise" Grid.Column="0"   Height="20"  HorizontalAlignment="Stretch"  Fill="Aqua"  
+                           
+                           MouseLeftButtonDown="Minimise_MouseLeftButtonDown"
                        MouseEnter="Minimise_MouseEnter"
                        MouseLeave="Minimise_MouseLeave"
                        ToolTip="Minimize"
+                       Opacity=".3"  />
+                
+                <Rectangle x:Name="Drag" Grid.Column="1"   Height="20"  HorizontalAlignment="Stretch" Fill="#80000000"  MouseLeftButtonDown="Drag_MouseLeftButtonDown"
+                       MouseEnter="Drag_MouseEnter"
+                       MouseLeave="Drag_MouseLeave"
+                       ToolTip="Drag"
                        Opacity=".3" />
-        <Rectangle x:Name="Close" Grid.Column="0" Grid.Row="0" Width="220" Height="20" HorizontalAlignment="Right" Canvas.Left="230" Fill="#FFFF2E00"  MouseLeftButtonDown="Close_MouseLeftButtonDown"
+                <Rectangle x:Name="Close" Grid.Column="2"  Height="20"  HorizontalAlignment="Stretch"  Fill="#FFFF2E00"  MouseLeftButtonDown="Close_MouseLeftButtonDown"
                        MouseEnter="Close_MouseEnter"
                        MouseLeave="Close_MouseLeave" Opacity=".3" ToolTip="Close"
                        ></Rectangle>
-        <Button x:Name="Back" Content="Home"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Height="25" Width="102" Canvas.Top="20" Visibility="Collapsed" Click="Back_Click"></Button>
+            </Grid>
+        </StackPanel>
 
 
 
-        <Frame x:Name="MainFrame" Grid.Column="0" Grid.Row="2"  NavigationUIVisibility="Hidden" Navigated="MainFrame_Navigated" />
+
+
+
+        <Frame x:Name="MainFrame" x:FieldModifier="public"  Grid.Column="0"  Grid.Row="2"  NavigationUIVisibility="Hidden"  />
 
         
 
         
-    </Grid>
+    </Grid> 
 
 </Window>

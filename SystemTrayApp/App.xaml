@@ -16,13 +16,22 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="NotifyIconResources.xaml" />
-                
+
+                <ResourceDictionary>
+                    <ObjectDataProvider x:Key="NFS_Cleanup_Config"
+                        ObjectType="{x:Type local:NFS_Cleanup}" />
+                    <ObjectDataProvider x:Key="ReadingsMonitoring_Config"
+                        ObjectType="{x:Type local:ReadingsMonitoring}" />
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            
         </ResourceDictionary>
-        
-        
 
         
+
+
+
+
 
     </Application.Resources>
 </Application>

@@ -19,18 +19,19 @@ namespace SystemTrayApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        Uri Landing = new Uri("LandingPage.xaml", UriKind.Relative);
-        public static MainWindow _instance;
         
-
         public MainWindow()
         {
-            InitializeComponent();
-
-            _instance = this;
+            Uri Landing = new Uri("LandingPage.xaml", UriKind.Relative);
+            InitializeComponent();            
             this.MainFrame.Source = Landing;
-             
+            
 
+        }
+
+        public void MainFrame_Source(Uri path)
+        {
+            this.MainFrame.Source = path;
         }
 
 
@@ -70,16 +71,21 @@ namespace SystemTrayApp
 
         }
 
-        private void MainFrame_Navigated(object sender, NavigationEventArgs e)
+        private void Drag_MouseLeftButtonDown(object sender ,MouseEventArgs e)
         {
-            if (e.Content.ToString() == "SystemTrayApp.LandingPage") { Back.Visibility = Visibility.Collapsed; }
-            else { Back.Visibility = Visibility.Visible; };
+            Main.DragMove();
+        }
+
+        private void Drag_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Drag.Opacity = 1;
 
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e)
+        private void Drag_MouseLeave(object sender, MouseEventArgs e)
         {
-            MainFrame.Source = Landing;
+            Drag.Opacity = 0.3;
+
         }
 
 

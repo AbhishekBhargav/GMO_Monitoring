@@ -6,10 +6,15 @@
       xmlns:local="clr-namespace:SystemTrayApp"
       xmlns:TextOnAPath="clr-namespace:TextOnAPath;assembly=TextOnAPath"
       xmlns:System="clr-namespace:System;assembly=mscorlib"
+      xmlns:Behaviour="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:vm="clr-namespace:SystemTrayApp.VM"
+      
       Name="Landing"
       mc:Ignorable="d" 
       d:DesignHeight="460" d:DesignWidth="480" 
       Title="LandingPage">
+
+    
 
     <Page.Resources>
         
@@ -25,7 +30,7 @@
                                 <RowDefinition Height="230"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Canvas Grid.Column="0" Grid.Row="0" >
-                                <Path x:Name="PortEx" Fill="Wheat"  >
+                                <Path x:Name="PortEx" Fill="{DynamicResource PEColour}"  >
                                     <Path.Data>
                                         <PathGeometry FillRule="EvenOdd">
                                             <PathFigureCollection>
@@ -207,6 +212,9 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <local:NotifyIconViewModel x:Key="NIVM"/>
+        <vm:Detail_Log_ViewModel x:Key="DLVM"/>
+        <local:MainWindow x:Key="RcM"/>
     </Page.Resources>
 
     <Grid Height="460" Width="480" >
@@ -219,10 +227,10 @@
             <RowDefinition Height="230"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Button x:Name="CS"  Style="{DynamicResource clust}"  Grid.Column="1" Grid.Row="1" PreviewMouseUp="Path_MouseUp"></Button>
-        <Button x:Name="NFSC"  Style="{DynamicResource nfsclean}" Grid.Column="1" Grid.Row="0" PreviewMouseUp="Path_MouseUp"></Button>
-        <Button x:Name="PE"  Style="{DynamicResource portex}" Grid.Column="0" Grid.Row="1" PreviewMouseUp="Path_MouseUp"></Button>
-        <Button x:Name="RCM" Style="{DynamicResource read}" Grid.Column="0" Grid.Row="0"   PreviewMouseUp="Path_MouseUp"></Button>
+        <Button x:Name="CS"  Style="{DynamicResource clust}"  Grid.Column="1" Grid.Row="1" Command="{Binding ButtonClick, Mode=OneWay, Source={StaticResource NIVM}}" CommandParameter="{Binding Name, ElementName=CS}"/>
+        <Button x:Name="NFSC"  Style="{DynamicResource nfsclean}" Grid.Column="1" Grid.Row="0" Command="{Binding ButtonClick, Mode=OneWay, Source={StaticResource NIVM}}" CommandParameter="{Binding Name, ElementName=NFSC}"/>
+        <Button x:Name="PE"  Style="{DynamicResource portex}" Grid.Column="0" Grid.Row="1" Command="{Binding ButtonClick, Mode=OneWay, Source={StaticResource NIVM}}" CommandParameter="{Binding Name, ElementName=PE}"/>
+        <Button x:Name="RCM" Style="{DynamicResource read}" Grid.Column="0" Grid.Row="0" Command="{Binding ButtonClick, Mode=OneWay, Source={StaticResource NIVM}}" CommandParameter="{Binding Name, ElementName=RCM}" />
 
         <TextOnAPath:TextOnAPath FontSize="17" IsHitTestVisible="False" Text="                   Port Exhaustion" Foreground ="Black"  DrawPath="True" Grid.Column="0" Margin="47,215,10,64" Grid.RowSpan="2" >
             <TextOnAPath:TextOnAPath.TextPath>

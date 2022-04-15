@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -15,17 +16,13 @@ using System.Windows.Shapes;
 namespace SystemTrayApp
 {
     /// <summary>
-    /// Interaction logic for LandingPage.xaml
+    /// Interaction logic for NFS_Configuration.xaml
     /// </summary>
-    public partial class LandingPage : Page
+    public partial class NFS_Configuration : Page
     {
-        
-        public LandingPage()
+        public NFS_Configuration()
         {
             InitializeComponent();
-            
-            
-        }    
-        
+        }
     }
 }

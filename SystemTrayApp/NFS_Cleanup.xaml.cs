@@ -12,61 +12,28 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Runtime.Remoting.Messaging;
+using SystemTrayApp.VM;
+using SystemTrayApp.Model;
 
 namespace SystemTrayApp
 {
     /// <summary>
-    /// Interaction logic for NFS_Cleanup.xaml
+    /// Interaction logic for ReadingsMonitoring.xaml
     /// </summary>
-    public partial class NFS_Cleanup : Page
+    public partial class NFS_Cleanup : Detail_Log_Model
     {
         public NFS_Cleanup()
         {
             InitializeComponent();
-            LogDatePick.SelectedDate = DateTime.Today;
-            try
-            {
-                Logs.Text = System.IO.File.ReadAllText(ConfigurationManager.AppSettings.Get("NFS Cleanup Logs") + "\\Logs_" + LogDatePick.SelectedDate.Value.Year + LogDatePick.SelectedDate.Value.Month.ToString("00") + LogDatePick.SelectedDate.Value.Day.ToString("00") + ".txt");
-            }
-            catch (Exception error) { Logs.Text = error.ToString(); }
+            Backb = Back;
+            Nextb = Next;
+            Previousb = Previous;
+            LogDatePickb = LogDatePick;
+            Logsb = Logs;
+            LogDateb = LogDate;
 
-
-
-
-        }
-
-
-
-        private void LogDate_MouseEnter(object sender, MouseEventArgs e)
-        {
-            LogDatePick.Visibility = Visibility.Visible;
-        }
-
-        private void LogDatePick_MouseLeave(object sender, MouseEventArgs e)
-        {
-            LogDatePick.Visibility = Visibility.Collapsed;
-
-        }
-
-        private void Previous_Click(object sender, RoutedEventArgs e)
-        {
-            LogDatePick.SelectedDate = LogDatePick.SelectedDate.Value.AddDays(-1);
-
-        }
-
-        private void Next_Click(object sender, RoutedEventArgs e)
-        {
-            LogDatePick.SelectedDate = LogDatePick.SelectedDate.Value.AddDays(1);
-
-        }
-
-        private void LogDatePick_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                Logs.Text = System.IO.File.ReadAllText(ConfigurationManager.AppSettings.Get("NFS Cleanup Logs") + "\\Logs_" + LogDatePick.SelectedDate.Value.Year + LogDatePick.SelectedDate.Value.Month.ToString("00") + LogDatePick.SelectedDate.Value.Day.ToString("00") + ".txt");
-            }
-            catch (Exception error) { Logs.Text = error.ToString(); }
-        }
+            Delmethod();
+        }        
     }
 }

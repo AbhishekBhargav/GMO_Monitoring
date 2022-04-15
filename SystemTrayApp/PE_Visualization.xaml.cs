@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -12,28 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Runtime.Remoting.Messaging;
-using SystemTrayApp.VM;
+using BarChart;
 using SystemTrayApp.Model;
 
 namespace SystemTrayApp
 {
     /// <summary>
-    /// Interaction logic for ReadingsMonitoring.xaml
+    /// Interaction logic for PE_Visualization.xaml
     /// </summary>
-    public partial class ReadingsMonitoring : Detail_Log_Model
+    public partial class PE_Visualization : Visual_Log_Model
     {
-        public ReadingsMonitoring()
+        public PE_Visualization()
         {
             InitializeComponent();
-            Backb = Back;
-            Nextb = Next;
-            Previousb = Previous;
-            LogDatePickb = LogDatePick;
-            Logsb = Logs;
-            LogDateb = LogDate;
-
-            Delmethod();
-        }        
+            Barb = bar;
+            //Bargraph b = bar;
+            //this.DataContext = this;
+            //bar.Items.CollectionChanged += (e, v) => b.Loop();
+            
+        }
     }
 }

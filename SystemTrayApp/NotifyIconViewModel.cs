@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Controls;
+using System.IO;
+using System.Configuration;
 
 namespace SystemTrayApp
 {
@@ -29,6 +31,7 @@ namespace SystemTrayApp
                         Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
                     }
+                    
                 };
             }
         }
@@ -43,12 +46,37 @@ namespace SystemTrayApp
                 return new DelegateCommand
                 {
                     CommandAction = () => Application.Current.MainWindow.Close(),
-                    CanExecuteFunc = () => Application.Current.MainWindow != null
+                    CanExecuteFunc = () => Application.Current.MainWindow != null                    
                 };
             }
         }
 
+        public ICommand RefreshWindow
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () => ((App)Application.Current).Refresh()
+                };                            
 
+
+            }
+        }
+
+        
+
+        public ICommand ButtonClick
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    Click = (string bt) => ((App)Application.Current).WhichButon(bt)
+                };
+            }
+        }
+            
         /// <summary>
         /// Shuts down the application.
         /// </summary>
@@ -59,9 +87,7 @@ namespace SystemTrayApp
                 return new DelegateCommand {CommandAction = () => Application.Current.Shutdown()};
             }
         }
-
-
-        
+                
     }
 
 
@@ -71,11 +97,18 @@ namespace SystemTrayApp
     public class DelegateCommand : ICommand
     {
         public Action CommandAction { get; set; }
+        public Action CommandAction2 { get; set; }
+        public Action<string> Click { get; set; }
+
         public Func<bool> CanExecuteFunc { get; set; }
+
+
 
         public void Execute(object parameter)
         {
-            CommandAction();
+            if (CommandAction != null) { CommandAction(); };
+            if (CommandAction2 != null) { CommandAction2(); } ;
+            if (Click != null) { Click( parameter as string); };
         }
 
         public bool CanExecute(object parameter)
@@ -89,30 +122,5 @@ namespace SystemTrayApp
             remove { CommandManager.RequerySuggested -= value; }
         }
     }
-
-    public class Landingmethod
-    {
-        public SolidColorBrush ShadeColor(object sender, sbyte percent)
-        {
-            
-            Byte R = Byte.Parse((sender as Button).Background.ToString().Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-
-            Byte G = Byte.Parse((sender as Button).Background.ToString().Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
-            Byte B = Byte.Parse((sender as Button).Background.ToString().Substring(7, 2), System.Globalization.NumberStyles.HexNumber);
-
-            R = Convert.ToByte((R != 0) ? Math.Max(0, Math.Min((R + percent), 255)) : R);
-            G = Convert.ToByte((G != 0) ? Math.Max(0, Math.Min((G + percent), 255)) : G);
-            B = Convert.ToByte((B != 0) ? Math.Max(0, Math.Min((B + percent), 255)) : B);
-
-
-            string RR = R.ToString("X2");
-            string GG = G.ToString("X2");
-            string BB = B.ToString("X2");
-
-
-            return new BrushConverter().ConvertFromString(("#FF" + RR + GG + BB)) as SolidColorBrush;
-        }
-    }
-
 
 }
