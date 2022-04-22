@@ -32,8 +32,10 @@ namespace SystemTrayApp
             LogDatePickb = LogDatePick;
             Logsb = Logs;
             LogDateb = LogDate;
-
-            Delmethod();
+            LS = Page_Loading;
+            DGM_List = new List<DGM.UserControl1>();
+            DGM_List.Add(ConfigDG);
+            Loaded += DL_Loaded;
         }        
     }
 }

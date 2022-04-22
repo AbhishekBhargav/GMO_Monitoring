@@ -5,7 +5,9 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using SystemTrayApp.Model;
 using SystemTrayApp.VM.Commands;
@@ -75,7 +77,7 @@ namespace SystemTrayApp.VM
             {
                 return new DLVM_Delgate
                 {
-                    Command = (Detail_Log_Model newpage) => newpage.Delmethod()
+                    Command =  (Detail_Log_Model newpage) => newpage.DL_Loaded(new Button(),new System.Windows.RoutedEventArgs() { RoutedEvent=ButtonBase.ClickEvent})
                 };
             }
         }

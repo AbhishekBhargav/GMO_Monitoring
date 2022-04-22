@@ -50,4 +50,25 @@ namespace SystemTrayApp.VM.Commands
             Command(parameter as Visual_Log_Model);
         }
     }
+
+    public class LPVM_Delegate : ICommand
+    {
+        public Func<bool> CanExecuteFun { get; set; }
+        public Action<Login_page_model> Command { get; set; }
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return CanExecuteFun == null || CanExecuteFun();
+        }
+
+        public void Execute(object parameter)
+        {
+            Command(parameter as Login_page_model);
+        }
+    }
 }

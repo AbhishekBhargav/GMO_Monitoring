@@ -12,17 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SystemTrayApp.Model;
 
 namespace SystemTrayApp
 {
     /// <summary>
     /// Interaction logic for Login_Page.xaml
     /// </summary>
-    public partial class Login_Page : Page
+    public partial class Login_Page : Login_page_model
     {
         public Login_Page()
         {
             InitializeComponent();
+            UN = Username;
+            PW = Password;
+            Login = Login_Button;            
+            Loading = Spinner;
+            App_Loading = App_spinner;
         }
     }
 }

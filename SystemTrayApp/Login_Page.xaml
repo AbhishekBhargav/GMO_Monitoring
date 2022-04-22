@@ -1,14 +1,17 @@
-﻿<Page x:Class="SystemTrayApp.Login_Page"
+﻿<base:Login_page_model x:Class="SystemTrayApp.Login_Page"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SystemTrayApp"
+      xmlns:base="clr-namespace:SystemTrayApp.Model"
+      xmlns:vm="clr-namespace:SystemTrayApp.VM"
+      xmlns:spinner="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="800"
+      MaxHeight="400" MaxWidth="800" ResizeMode="NoResize"  Background="Transparent"  WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None"
       Title="Login_Page">
 
-    <Page.Resources>
+    <base:Login_page_model.Resources>
         <DrawingImage x:Key="SE_logotype_lifeison_whiteDrawingImage">
             <DrawingImage.Drawing>
                 <DrawingGroup ClipGeometry="M0,0 V69.4 H252.1 V0 H0 Z">
@@ -62,7 +65,8 @@
                 </DrawingGroup>
             </DrawingImage.Drawing>
         </DrawingImage>
-    </Page.Resources>
+        <vm:Login_View_Model x:Key="LPVM"></vm:Login_View_Model>
+    </base:Login_page_model.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -89,23 +93,30 @@
             <TextBlock Text="Username" FontFamily="pack://application:,,,/Fonts/#Nunito Black"></TextBlock>
             <TextBlock Text="*" FontFamily="pack://application:,,,/Fonts/#Nunito Black" Foreground="Red"></TextBlock>
             </TextBlock>
-            
+
             <TextBox x:Name="Username" BorderBrush="LightSlateGray" Margin="80,0,80,20"></TextBox>
-            
-            <TextBlock x:Name="Password_Lable" Margin="80,20,80,10">
+
+            <TextBlock x:Name="Password_Lable" Margin="80,10,80,10">
                 
             <TextBlock Text="Password" FontFamily="pack://application:,,,/Fonts/#Nunito Black"></TextBlock>
             <TextBlock Text="*" FontFamily="pack://application:,,,/Fonts/#Nunito Black" Foreground="Red"></TextBlock>
             </TextBlock>
-            <TextBox x:Name="Password" BorderBrush="LightSlateGray" Margin="80,0,80,20"></TextBox>
-            <Button x:Name="Login" Content="Login" Margin="90,0,90,20" FontFamily="pack://application:,,,/Fonts/#Nunito Black" Foreground="White" Background="#3DCD58" BorderBrush="{x:Null}" ></Button>
-            
-        </StackPanel>
+            <PasswordBox x:Name="Password" BorderBrush="LightSlateGray" Margin="80,0,80,20"></PasswordBox>
+            <!--<TextBox x:Name="Password" BorderBrush="LightSlateGray" Margin="80,0,80,20" ></TextBox>-->
+            <Button x:Name="Login_Button" Content="Login" Margin="90,0,90,10" FontFamily="pack://application:,,,/Fonts/#Nunito Black" Foreground="White" Background="#3DCD58" BorderBrush="{x:Null}" Command="{Binding Login_Command, Source={StaticResource LPVM}}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Login_Page}}}" ></Button>
+            <spinner:LCC Name="Spinner" Diameter="20" Thickness="2"  Color="#3DCD58"></spinner:LCC>
+            <TextBlock x:Name="Login_Result"  TextAlignment="Center" Text="{Binding Status_Data_Instance.Status, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Login_Page}}}"
+                       Visibility="{Binding Status_Data_Instance.Visibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Login_Page}}}"
+                       Foreground="{Binding Status_Data_Instance.Status_Color, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:Login_Page}}}"></TextBlock>
 
+
+        </StackPanel>
+        
         <Rectangle Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Fill="#3DCD58">
-            
+
         </Rectangle>
         <Image Source="{StaticResource SE_logotype_lifeison_whiteDrawingImage}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" Margin="0,0,10,0"></Image>
-        
+        <spinner:LCC Name="App_spinner" Diameter="100" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Thickness="4"  Color="#3DCD58" Margin="30,0,0,0"></spinner:LCC>
+
     </Grid>
-</Page>
+</base:Login_page_model>

@@ -97,11 +97,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BarChart.dll</HintPath>
     </Reference>
+    <Reference Include="CredentialManagement, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CredentialManagement.1.0.2\lib\net35\CredentialManagement.dll</HintPath>
+    </Reference>
     <Reference Include="DGM">
       <HintPath>..\DGM.dll</HintPath>
     </Reference>
     <Reference Include="Hardcodet.Wpf.TaskbarNotification">
       <HintPath>..\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
+    <Reference Include="LoadingSpinnerControl">
+      <HintPath>..\LoadingSpinnerControl.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
@@ -113,6 +119,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
@@ -143,7 +150,9 @@
     <Compile Include="Login_Page.xaml.cs">
       <DependentUpon>Login_Page.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\Cred.cs" />
     <Compile Include="Model\Detail_Log_Model.cs" />
+    <Compile Include="Model\Login_page_model.cs" />
     <Compile Include="Model\Task_Summary.cs" />
     <Compile Include="Model\Visual_Log_Model.cs" />
     <Compile Include="NotifyIconViewModel.cs" />
@@ -159,6 +168,7 @@
     <Compile Include="VM\Commands\Command.cs" />
     <Compile Include="VM\Detail_Log_ViewModel.cs" />
     <Compile Include="VM\Landing_Page_Model.cs" />
+    <Compile Include="VM\Login_View_Model.cs" />
     <Compile Include="VM\Task_Summary_Model.cs" />
     <Compile Include="VM\Visual_Log_View_Model.cs" />
     <Page Include="LandingPage.xaml">

@@ -26,9 +26,6 @@ namespace SystemTrayApp
         {
             InitializeComponent();
             Barb = bar;
-            //Bargraph b = bar;
-            //this.DataContext = this;
-            //bar.Items.CollectionChanged += (e, v) => b.Loop();
             
         }
     }

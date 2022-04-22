@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using System.Threading;
 using BarChart;
+using CredentialManagement;
+
 
 namespace SystemTrayApp
 {
@@ -22,12 +24,40 @@ namespace SystemTrayApp
     {
         public TaskbarIcon notifyIcon;
         public SolidColorBrush basecolour { get; set; }
+
         DateTime lastwrite = DateTime.MinValue;
+
         public FileSystemWatcher Watcher;
+
+        public async Task<Dictionary<string,string>> Run_FilewatcherAsync()
+        {
+            return await Task.Run(() =>
+            {
+                
+                try
+                {
+                    File_Watcher();                             
+                    return new Dictionary<string, string>()
+                    {
+
+                        ["Status"] = "true"
+                    };
+                }
+                catch (Exception e)
+                {
+                    return new Dictionary<string, string>()
+                    {
+
+                        ["Status"] = "false",
+                        ["Exception"] = e.Message
+                    };
+                }                
+            });
+        }
 
         public void RC()
         {
-            
+
             string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             DateTime writetime = File.GetLastWriteTime(path);
             if (writetime.Ticks - lastwrite.Ticks > 10000)
@@ -45,9 +75,9 @@ namespace SystemTrayApp
                     {
                         data = sr.ReadToEnd();
                     }
-                    
+
                     JObject Root = JsonConvert.DeserializeObject<JObject>(data);
-                    try { ms = Root.SelectTokens("$.EventList...[?(@.Start_time <> 'NULL')].Start_time").Max().ToObject<DateTime>().GetDateTimeFormats('o')[0]; } catch (System.NullReferenceException) {  ms = DateTime.MinValue.ToString(); }
+                    try { ms = Root.SelectTokens("$.EventList...[?(@.Start_time <> 'NULL')].Start_time").Max().ToObject<DateTime>().GetDateTimeFormats('o')[0]; } catch (System.NullReferenceException) { ms = DateTime.MinValue.ToString(); }
                     try { me = Root.SelectTokens("$.EventList...[?(@.End_time <> 'NULL')].End_time").Max().ToObject<DateTime>().GetDateTimeFormats('o')[0]; } catch (System.NullReferenceException) { me = DateTime.MinValue.ToString(); }
 
                     if (DateTime.Parse(me) > DateTime.Parse(ms))
@@ -121,7 +151,7 @@ namespace SystemTrayApp
         }
         public void Reading_result(string data = null)
         {
-            
+
             string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             if (data == null & File.Exists(path))
             {
@@ -181,7 +211,7 @@ namespace SystemTrayApp
 
         public void NFS_result(string data = null)
         {
-           
+
             string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             if (data == null & File.Exists(path))
             {
@@ -299,7 +329,7 @@ namespace SystemTrayApp
 
         public void Onchanged(object sender, FileSystemEventArgs fe)
         {
-            
+
             try
             {
                 if (fe.ChangeType != WatcherChangeTypes.Changed)
@@ -330,14 +360,14 @@ namespace SystemTrayApp
             if (fe.GetException().Message == "The specified network name is no longer available")
             {
                 Watcher.Dispose();
-                
+
 
                 this.Dispatcher.Invoke(() =>
                 {
                     notifyIcon.ToolTipText = "Error Caught: \n " + fe.GetException().GetType() + "\n" + fe.GetException().ToString() + "\n" + fe.GetException().Message;
                 });
 
-                if (CanEnableNotification().Result) 
+                if (CanEnableNotification().Result)
                 {
                     File_Watcher();
                     this.Dispatcher.Invoke(() =>
@@ -346,12 +376,12 @@ namespace SystemTrayApp
                     });
                 }
             }
-            
+
         }
 
         public void File_Watcher()
         {
-            
+
             if (Directory.Exists(ConfigurationManager.AppSettings.Get("Summary_Logs")))
             {
                 Watcher = new FileSystemWatcher(ConfigurationManager.AppSettings.Get("Summary_Logs"));
@@ -392,14 +422,14 @@ namespace SystemTrayApp
             if (btn == "PE") { ((MainWindow)(Application.Current).MainWindow).MainFrame_Source(PE); };
         }
 
-        public  Boolean LoopCheck()
+        public Boolean LoopCheck()
         {
             Boolean IsLooping = true;
-            
+
             while (IsLooping)
             {
                 IsLooping = !(((App)Application.Current).Watcher == null ? Directory.Exists(ConfigurationManager.AppSettings.Get("Summary_Logs")) : Directory.Exists(ConfigurationManager.AppSettings.Get("Summary_Logs")) & ((App)Application.Current).Watcher.EnableRaisingEvents == false);
-                
+
                 Thread.Sleep(5000);
             }
 
@@ -410,26 +440,39 @@ namespace SystemTrayApp
         {
 
             return await Task.Run(() => LoopCheck());
-            
+
         }
-        
+
         protected override void OnStartup(StartupEventArgs e)
-        {            
-            base.OnStartup(e);            
+        {
+            base.OnStartup(e);
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
                 DateParseHandling = DateParseHandling.None
-            };            
+            };
             //create the notifyicon (it's a resource declared in NotifyIconResources.xaml
             notifyIcon = (TaskbarIcon)FindResource("NotifyIcon");
-            File_Watcher();
+            //File_Watcher();
         }
 
-        
+
 
         protected override void OnExit(ExitEventArgs e)
         {
             notifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            List<string> Access_Paths = ConfigurationManager.AppSettings.Get("Access_Path").Split(';').ToList<string>();
+            foreach (string path in Access_Paths)
+            {
+                using (var cred = new Credential())
+                {
+                    cred.Target = path;
+                    cred.Type = CredentialType.DomainPassword;
+                    if (cred.Exists())
+                    {
+                        cred.Delete();
+                    }
+                }
+            }
             base.OnExit(e);
         }
     }

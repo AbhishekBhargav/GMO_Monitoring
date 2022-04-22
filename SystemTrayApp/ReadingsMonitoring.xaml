@@ -6,7 +6,9 @@
        xmlns:vm="clr-namespace:SystemTrayApp.VM"
     xmlns:NDG="clr-namespace:DGM;assembly=DGM"
     xmlns:base="clr-namespace:SystemTrayApp.Model"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:Behaviour="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:spinner="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
       xmlns:local="clr-namespace:SystemTrayApp" x:Class="SystemTrayApp.ReadingsMonitoring"
       mc:Ignorable="d"
       x:Name="ReadingCollection_Logs"
@@ -25,6 +27,7 @@
         <Button x:Name="Back" Content="Home" Panel.ZIndex="2"  Grid.Column="1"  VerticalAlignment="Top" HorizontalAlignment="Right" Height="25" Width="102"  Visibility="Visible" Command="{Binding Home, Mode=OneWay, Source={StaticResource DLVM}}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReadingsMonitoring}}}"
                  
                 />
+        <spinner:LCC Name="Page_Loading" Diameter="100" Grid.Column="0" Grid.ColumnSpan="2"  Panel.ZIndex="10"  Thickness="4"  Color="#3DCD58" ></spinner:LCC>
         <TabControl Margin="10,0,10,0" Grid.Column="0" Grid.ColumnSpan="2" Background="Black" BorderBrush="Black" Height="460" Panel.ZIndex="1" >
             <TabControl.Resources>
                 <Style TargetType="TabItem">
@@ -97,7 +100,7 @@
 
                     </TextBox>
                     <DatePicker x:Name="LogDatePick" Width="auto" Height="auto" Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Visibility="Collapsed"
-                    Background="#80000000">
+                    Background="#80000000" SelectedDate="{x:Static sys:DateTime.Now}">
                         <Behaviour:Interaction.Triggers>
                             <Behaviour:EventTrigger EventName="MouseLeave">
                                 <Behaviour:InvokeCommandAction Command="{Binding DatePicker_InVisible, Mode=OneWay, Source={StaticResource DLVM}}" CommandParameter="{Binding Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ReadingsMonitoring}}}"></Behaviour:InvokeCommandAction>

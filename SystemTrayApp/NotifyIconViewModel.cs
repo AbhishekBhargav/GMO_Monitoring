@@ -28,6 +28,7 @@ namespace SystemTrayApp
                     
                     CommandAction = () =>
                     {
+
                         Application.Current.MainWindow = new MainWindow();
                         Application.Current.MainWindow.Show();
                     }
@@ -35,6 +36,24 @@ namespace SystemTrayApp
                 };
             }
         }
+
+        //public ICommand ShowLoginWindowCommand
+        //{
+        //    get
+        //    {
+        //        return new DelegateCommand
+        //        {
+        //            CanExecuteFunc = () => Application.Current.MainWindow == null,
+
+        //            CommandAction = () =>
+        //            {
+        //                Application.Current.MainWindow = new Login_Page();
+        //                Application.Current.MainWindow.Show();
+        //            }
+
+        //        };
+        //    }
+        //}
 
         /// <summary>
         /// Hides the main window. This command is only enabled if a window is open.
@@ -46,7 +65,7 @@ namespace SystemTrayApp
                 return new DelegateCommand
                 {
                     CommandAction = () => Application.Current.MainWindow.Close(),
-                    CanExecuteFunc = () => Application.Current.MainWindow != null                    
+                    CanExecuteFunc = () => ((Application.Current.MainWindow == null ? "" : Application.Current.MainWindow.Title) != "Login_Page") & Application.Current.MainWindow != null
                 };
             }
         }
@@ -58,13 +77,13 @@ namespace SystemTrayApp
                 return new DelegateCommand
                 {
                     CommandAction = () => ((App)Application.Current).Refresh()
-                };                            
+                };
 
 
             }
         }
 
-        
+
 
         public ICommand ButtonClick
         {
@@ -76,7 +95,7 @@ namespace SystemTrayApp
                 };
             }
         }
-            
+
         /// <summary>
         /// Shuts down the application.
         /// </summary>
