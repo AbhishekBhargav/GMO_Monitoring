@@ -85,7 +85,7 @@
 
         <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Vertical" Background="White">
             <TextBlock x:Name="App_Name" Text="GMO Monitoring" FontFamily="pack://application:,,,/Fonts/#Nunito Light" Foreground="#3DCD58" FontSize="40" Margin="30,80,0,10"></TextBlock>
-            <TextBlock x:Name="App_Version" Text="version 1.0.0" FontFamily="pack://application:,,,/Fonts/#Nunito Light" Foreground="#3DCD58" FontSize="16" Margin="30,20,0,10"></TextBlock>
+            <TextBlock x:Name="App_Version" Text="version 1.1.0" FontFamily="pack://application:,,,/Fonts/#Nunito Light" Foreground="#3DCD58" FontSize="16" Margin="30,20,0,10"></TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Vertical" Background="White">
