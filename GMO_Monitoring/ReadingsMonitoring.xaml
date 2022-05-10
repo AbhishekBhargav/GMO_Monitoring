@@ -9,6 +9,7 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     xmlns:Behaviour="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:spinner="clr-namespace:LoadingSpinnerControl;assembly=LoadingSpinnerControl"
+    xmlns:BC_TS="clr-namespace:BarChart_TimeSeries;assembly=BarChart_TimeSeries"
       xmlns:local="clr-namespace:GMO_Monitoring" x:Class="GMO_Monitoring.ReadingsMonitoring"
       mc:Ignorable="d"
       x:Name="ReadingCollection_Logs"
@@ -78,6 +79,9 @@
                 </Style>
 
             </TabControl.Resources>
+            <TabItem Header="Visualization" Foreground="White">
+                <BC_TS:BarChart_TS x:Name="RC_Bar" Items="{DynamicResource RCBarData}" ></BC_TS:BarChart_TS>
+            </TabItem>
             <TabItem  Header="Log" Foreground="White" Height="25" >
 
 

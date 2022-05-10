@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:tb="http://www.hardcodet.net/taskbar"
                     xmlns:local="clr-namespace:GMO_Monitoring" x:Name="rd"
-                    xmlns:Barchart="clr-namespace:BarChart;assembly=BarChart">
+                    xmlns:Barchart="clr-namespace:BarChart;assembly=BarChart"
+                    xmlns:BC_TS="clr-namespace:BarChart_TimeSeries;assembly=BarChart_TimeSeries">
                         
 
     <!-- The taskbar context menu - the first row is a dummy to show off simple data binding -->
@@ -22,6 +23,9 @@
     <SolidColorBrush x:Key="NFSColour" ></SolidColorBrush>
     <SolidColorBrush x:Key="PEColour"></SolidColorBrush>
     <Barchart:PEDate x:Key="PEBarData"></Barchart:PEDate>
+    <BC_TS:TSdata x:Key="RCBarData"></BC_TS:TSdata>
+    <!--<TextBlock x:Key="LastUpdate"></TextBlock>-->
+    
 
 
     <!-- the application's NotifyIcon - started from App.xaml.cs. Declares its own view model. -->

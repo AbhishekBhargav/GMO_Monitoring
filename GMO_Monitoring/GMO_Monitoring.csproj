@@ -97,6 +97,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\BarChart.dll</HintPath>
     </Reference>
+    <Reference Include="BarChart_TimeSeries">
+      <HintPath>..\BarChart_TimeSeries.dll</HintPath>
+    </Reference>
     <Reference Include="CredentialManagement, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CredentialManagement.1.0.2\lib\net35\CredentialManagement.dll</HintPath>
     </Reference>

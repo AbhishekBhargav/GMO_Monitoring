@@ -36,23 +36,39 @@
                     <ColumnDefinition x:Name="Clo" Width="0.45*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Rectangle x:Name="Minimise" Grid.Column="0"   Height="20"  HorizontalAlignment="Stretch"  Fill="Aqua"  
+                <Rectangle x:Name="Minimise" Grid.Column="0"   Height="20"  HorizontalAlignment="Stretch"  Fill="ForestGreen"  
                            
                            MouseLeftButtonDown="Minimise_MouseLeftButtonDown"
                        MouseEnter="Minimise_MouseEnter"
                        MouseLeave="Minimise_MouseLeave"
                        ToolTip="Minimize"
-                       Opacity=".3"  />
+                       Opacity=".3">
+                    
+                </Rectangle>
+
+                <TextBlock x:Name="Minimise_text" Grid.Column="0"   Height="20"  HorizontalAlignment="Stretch"  
+                           Text="Minimise" TextAlignment="Center" FontSize="15" Foreground="White" Panel.ZIndex="10" IsHitTestVisible="False"
+                           ></TextBlock>
                 
                 <Rectangle x:Name="Drag" Grid.Column="1"   Height="20"  HorizontalAlignment="Stretch" Fill="#80000000"  MouseLeftButtonDown="Drag_MouseLeftButtonDown"
                        MouseEnter="Drag_MouseEnter"
                        MouseLeave="Drag_MouseLeave"
                        ToolTip="Drag"
                        Opacity=".3" />
+
+                <TextBlock x:Name="Drag_text" Grid.Column="1"   Height="20"  HorizontalAlignment="Stretch"  
+                           Text="Drag" TextAlignment="Center" FontSize="15" Foreground="White" Panel.ZIndex="10" IsHitTestVisible="False"
+                           ></TextBlock>
+
                 <Rectangle x:Name="Close" Grid.Column="2"  Height="20"  HorizontalAlignment="Stretch"  Fill="#FFFF2E00"  MouseLeftButtonDown="Close_MouseLeftButtonDown"
                        MouseEnter="Close_MouseEnter"
                        MouseLeave="Close_MouseLeave" Opacity=".3" ToolTip="Close"
                        ></Rectangle>
+
+                <TextBlock x:Name="Close_text" Grid.Column="2"   Height="20"  HorizontalAlignment="Stretch"  
+                           Text="Close" TextAlignment="Center" FontSize="15" Foreground="White" Panel.ZIndex="10" IsHitTestVisible="False"
+                           ></TextBlock>
+
             </Grid>
         </StackPanel>
 

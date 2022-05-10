@@ -1,0 +1,254 @@
+{
+    "EventList":  {
+                      "PE":  {
+                                 "Task":  [
+                                              {
+                                                  "Server":  "prod_dlms_com1:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "38",
+                                                  "Time":  "2022-02-19T13:30:08.5949321+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com2:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "42",
+                                                  "Time":  "2022-02-19T13:30:23.7044465+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com3:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "47",
+                                                  "Time":  "2022-02-19T13:30:48.9395864+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com4:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "52",
+                                                  "Time":  "2022-02-19T13:30:49.3926789+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_api1:Titanium.DlmsHE.API",
+                                                  "Status":  "Info",
+                                                  "Value":  "36",
+                                                  "Time":  "2022-02-19T13:30:56.2363878+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_api3:Titanium.DlmsHE.API",
+                                                  "Status":  "Info",
+                                                  "Value":  "31",
+                                                  "Time":  "2022-02-19T13:30:56.7988810+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_api4:Titanium.DlmsHE.API",
+                                                  "Status":  "Info",
+                                                  "Value":  "33",
+                                                  "Time":  "2022-02-19T13:30:56.5332748+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_op3:Titanium.DlmsHE.Operations",
+                                                  "Status":  "Info",
+                                                  "Value":  "46",
+                                                  "Time":  "2022-02-19T13:30:57.8457958+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_op5:Titanium.DlmsHE.Operations",
+                                                  "Status":  "Info",
+                                                  "Value":  "44",
+                                                  "Time":  "2022-02-19T13:30:57.2832650+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_op4:Titanium.DlmsHE.Operations",
+                                                  "Status":  "Info",
+                                                  "Value":  "56",
+                                                  "Time":  "2022-02-19T13:30:56.8926449+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_op2:Titanium.DlmsHE.Operations",
+                                                  "Status":  "Info",
+                                                  "Value":  "46",
+                                                  "Time":  "2022-02-19T13:30:58.5801507+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_api2:Titanium.DlmsHE.API",
+                                                  "Status":  "Info",
+                                                  "Value":  "35",
+                                                  "Time":  "2022-02-19T13:30:57.9551441+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_op6:Titanium.DlmsHE.Operations",
+                                                  "Status":  "Info",
+                                                  "Value":  "47",
+                                                  "Time":  "2022-02-19T13:30:58.2207551+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com10:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "42",
+                                                  "Time":  "2022-02-19T13:30:58.1582502+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_op1:Titanium.DlmsHE.Operations",
+                                                  "Status":  "Info",
+                                                  "Value":  "33",
+                                                  "Time":  "2022-02-19T13:30:58.4238847+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com9:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "66",
+                                                  "Time":  "2022-02-19T13:30:58.7988806+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com5:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "56",
+                                                  "Time":  "2022-02-19T13:30:53.8457698+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com8:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "57",
+                                                  "Time":  "2022-02-19T13:30:58.4707568+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com6:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "53",
+                                                  "Time":  "2022-02-19T13:30:58.4395101+05:30"
+                                              },
+                                              {
+                                                  "Server":  "prod_dlms_com7:Titanium.DlmsHE.Communications",
+                                                  "Status":  "Info",
+                                                  "Value":  "57",
+                                                  "Time":  "2022-02-19T13:30:58.7988806+05:30"
+                                              }
+                                          ]
+                             },
+                      "ReadingCollection":  {
+                                                "Task":  [
+                                                             {
+                                                                 "TaskID":  "49A07F18FD6B4E039E076FC6A092FD06",
+                                                                 "Status":  "Completed",
+                                                                 "Start_time":  "2022-02-19T00:10:32.9982680+05:30",
+                                                                 "End_time":  "2022-02-19T02:10:09.2353881+05:30",
+																 "Accepted": "1000",
+																 "Queued":"200",
+																 "InProgress":"10",
+																 "Completed":"690"
+                                                             },
+                                                             {
+                                                                 "TaskID":  "5EFED646ADA04591A3B95BBDD36E7363",
+                                                                 "Status":  "Completed",
+                                                                 "Start_time":  "2022-02-19T03:00:59.4894884+05:30",
+                                                                 "End_time":  "2022-02-19T03:27:02.7750484+05:30",
+																 "Accepted": "1000",
+																 "Queued":"200",
+																 "InProgress":"10",
+																 "Completed":"690"
+                                                             },
+                                                             {
+                                                                 "TaskID":  "B06CE870099F4AABA1B9997D0E4644F2",
+                                                                 "Status":  "Completed",
+                                                                 "Start_time":  "2022-02-19T06:00:36.3969222+05:30",
+                                                                 "End_time":  "2022-02-19T06:22:43.0048022+05:30",
+																 "Accepted": "1000",
+																 "Queued":"200",
+																 "InProgress":"10",
+																 "Completed":"690"
+                                                             },
+                                                             {
+                                                                 "TaskID":  "9C402BBCB5804E37A6B54F1004D9DD97",
+                                                                 "Status":  "Started",
+                                                                 "Start_time":  "2022-02-19T13:15:32.6644286+05:30",
+                                                                 "End_time":  "NULL",
+																 "Accepted": "1000",
+																 "Queued":"200",
+																 "InProgress":"10",
+																 "Completed":"690"
+                                                             }
+                                                         ]
+                                            },
+                      "NFS":  {
+                                  "Task":  [
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_he\\CollectorOutput\\Processed\\DlmsResultDailyBilling\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T09:00:08.7909622+05:30",
+                                                   "End_time":  "2022-02-19T09:03:55.1900567+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_he\\CollectorOutput\\Processed\\DlmsResultLoadProfile\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T09:00:08.8690835+05:30",
+                                                   "End_time":  "2022-02-19T09:56:04.6201913+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporter\\FTP\\Processed\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T09:00:08.9628286+05:30",
+                                                   "End_time":  "2022-02-19T11:39:45.7767517+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_he\\CollectorOutput\\Processed\\DlmsResultMonthlyBilling\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:39:54.5299279+05:30",
+                                                   "End_time":  "2022-02-19T11:40:32.6941122+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporter\\FTP\\Processed\\2022\\02\\05.zip",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:40:38.8665352+05:30",
+                                                   "End_time":  "2022-02-19T11:41:21.5490846+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporter\\FTP\\Processed_Events\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:40:39.4290461+05:30",
+                                                   "End_time":  "2022-02-19T11:40:50.4782439+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporters\\EESL\\BILLING\\OUTPUT_PROCESSED_FOLDER\\Billing\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:40:39.6321877+05:30",
+                                                   "End_time":  "2022-02-19T11:40:54.5275298+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporters\\EESL\\DAILY\\OUTPUT_PROCESSED_FOLDER\\Daily\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:41:28.1741269+05:30",
+                                                   "End_time":  "2022-02-19T11:41:33.5335949+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporters\\EESL\\EVENTS\\OUTPUT_PROCESSED_FOLDER\\Events\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:41:28.5335077+05:30",
+                                                   "End_time":  "2022-02-19T11:41:39.6614893+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_int\\Exporters\\EESL\\LOADPROFILE\\OUTPUT_PROCESSED_FOLDER\\LoadProfile\\2022\\02\\18",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:41:30.2522876+05:30",
+                                                   "End_time":  "2022-02-19T11:42:04.3121294+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_he\\CollectorOutput\\Processed\\DlmsResultDailyBilling\\2022\\02\\05.zip",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:42:10.4230683+05:30",
+                                                   "End_time":  "2022-02-19T11:42:15.8140705+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_he\\CollectorOutput\\Processed\\DlmsResultLoadProfile\\2022\\02\\05.zip",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:42:10.7668533+05:30",
+                                                   "End_time":  "2022-02-19T11:42:22.1454598+05:30"
+                                               },
+                                               {
+                                                   "TaskID":  "\\\\10.10.254.74\\Prod_he\\CollectorOutput\\Processed\\DlmsResultMonthlyBilling\\2022\\02\\05.zip",
+                                                   "Status":  "Completed",
+                                                   "Start_time":  "2022-02-19T11:42:11.1265025+05:30",
+                                                   "End_time":  "2022-02-19T11:42:26.1613148+05:30"
+                                               }
+                                           ]
+                              }
+                  }
+}

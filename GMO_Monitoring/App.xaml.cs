@@ -11,8 +11,9 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using System.Threading;
 using BarChart;
+using BarChart_TimeSeries;
 using CredentialManagement;
-
+using System.Windows.Controls;
 
 namespace GMO_Monitoring
 {
@@ -55,11 +56,20 @@ namespace GMO_Monitoring
             });
         }
 
-        public void RC()
+        public void RC( string path)
         {
-
-            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
+            //string Lastup;
+            //string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             DateTime writetime = File.GetLastWriteTime(path);
+            //Lastup = Dispatcher.Invoke(() =>
+            //{
+            //    if (((TextBlock)Resources["LastUpdate"]).Text == null)
+            //    {
+            //        ((TextBlock)Resources["LastUpdate"]).Text = DateTime.MinValue.ToString();
+            //    }
+            //    return ((TextBlock)Resources["LastUpdate"]).Text;
+            //});
+            
             if (writetime.Ticks - lastwrite.Ticks > 10000)
             {
                 if (File.Exists(path))
@@ -70,6 +80,10 @@ namespace GMO_Monitoring
                     string data;
                     string ms;
                     string me;
+                    string mu;
+
+
+
                     using (FileStream fs = new FileStream(path.ToString(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     using (StreamReader sr = new StreamReader(fs))
                     {
@@ -79,65 +93,90 @@ namespace GMO_Monitoring
                     JObject Root = JsonConvert.DeserializeObject<JObject>(data);
                     try { ms = Root.SelectTokens("$.EventList...[?(@.Start_time <> 'NULL')].Start_time").Max().ToObject<DateTime>().GetDateTimeFormats('o')[0]; } catch (System.NullReferenceException) { ms = DateTime.MinValue.ToString(); }
                     try { me = Root.SelectTokens("$.EventList...[?(@.End_time <> 'NULL')].End_time").Max().ToObject<DateTime>().GetDateTimeFormats('o')[0]; } catch (System.NullReferenceException) { me = DateTime.MinValue.ToString(); }
+                    try { mu = Root.SelectTokens("$.EventList...[?(@.Update_time <> 'NULL')].Update_time").Max().ToObject<DateTime>().GetDateTimeFormats('o')[0]; } catch (System.NullReferenceException) { mu = DateTime.MinValue.ToString(); }
 
-                    if (DateTime.Parse(me) > DateTime.Parse(ms))
+                    void lf()
+                    {
+                        if (Task_Type != "PE")
+                        {
+                            this.Dispatcher.Invoke(() =>
+                            {
+                                if (Task_Status == "Started" || Task_Status == "Completed")
+                                {
+                                    notifyIcon.ShowBalloonTip(Task_Type + " Notification", Task + " " + Task_Status + " at " + (DateTime.Parse(me) > DateTime.Parse(ms) ? me : ms), BalloonIcon.Info);
+                                }
+                                else if (Task_Status == "Stop_Fail" || Task_Status == "File_Not_Found")
+                                {
+                                    notifyIcon.ShowBalloonTip(Task_Type + " Notification", Task + " " + Task_Status + " at " + (DateTime.Parse(me) > DateTime.Parse(ms) ? me : ms), BalloonIcon.Warning);
+                                }
+                                else
+                                {
+                                    notifyIcon.ShowBalloonTip(Task_Type + " Notification", Task + " " + Task_Status + " at " + (DateTime.Parse(me) > DateTime.Parse(ms) ? me : ms), BalloonIcon.Error);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            int value = (int)Root.SelectToken("$.EventList...[?(@.Start_time == '" + ms + "')].Value");
+                            if (Task_Status == "Warning")
+                            {
+                                notifyIcon.ShowBalloonTip(Task_Type + " Notification", "The Number of Bound States for " + Task.Split(':')[1] + " in the server  " + Task.Split(':')[0] + " are " + value.ToString(), BalloonIcon.Warning);
+                            }
+                            else if (Task_Status == "Error")
+                            {
+                                notifyIcon.ShowBalloonTip(Task_Type + " Notification", "The Number of Bound States for " + Task.Split(':')[1] + " in the server  " + Task.Split(':')[0] + " are " + value.ToString(), BalloonIcon.Error);
+                            }
+                        }
+
+
+                        if (Task_Type == "NFS")
+                        {
+                            NFS_result(data);
+                        }
+                        else if (Task_Type == "ReadingCollection")
+                        {
+                            Reading_result(data);
+                        }
+                        else { PE_result(data); }
+                    }
+
+                    if (DateTime.Parse(mu) > DateTime.Parse(ms) & DateTime.Parse(mu) > DateTime.Parse(me))
+                    {
+                        JObject Reading_status = JsonConvert.DeserializeObject<JObject>(data);
+                        string RCSummary = Reading_status.SelectToken("$.EventList.ReadingCollection.Task").ToString();
+                        TSdata RCdata = JsonConvert.DeserializeObject<TSdata>(RCSummary);
+                        this.Resources["RCBarData"] = RCdata;
+                    }
+                    else if (DateTime.Parse(me) > DateTime.Parse(ms))
                     {
                         Task = Root.SelectToken("$.EventList...[?(@.End_time == '" + me + "')].TaskID").ToString();
                         Task_Status = Root.SelectToken("$.EventList...[?(@.End_time == '" + me + "')].Status").ToString();
                         Task_Type = ((JProperty)((JToken)((JToken)Root.SelectTokens("$.EventList...[?(@.End_time == '" + me + "')].End_time").Max()).Parent.Parent.Parent.Parent.Parent.Parent)).Name;
+                        lf();
                     }
                     else
                     {
                         Task = Root.SelectToken("$.EventList...[?(@.Start_time == '" + ms + "')].TaskID").ToString();
                         Task_Status = Root.SelectToken("$.EventList...[?(@.Start_time == '" + ms + "')].Status").ToString();
                         Task_Type = ((JProperty)((JToken)((JToken)Root.SelectTokens("$.EventList...[?(@.Start_time == '" + ms + "')].Start_time").Max()).Parent.Parent.Parent.Parent.Parent.Parent)).Name;
-                    }
-                    //string Task = Root.SelectToken("$.EventList...[?(@.Start_time == '" + Root.SelectTokens("$.EventList...Start_time").Max() + "')].TaskID").ToString();
-                    //var Task = Root.EventList.ReadingCollection.Task.Take(Root.EventList.ReadingCollection.Task.Count()).Where(x => x.Start_time == Root.EventList.ReadingCollection.Task.Take(Root.EventList.ReadingCollection.Task.Count()).Select(y => y.Start_time).Max()).Select(x => x.TaskID).First();
-                    //string Task_Status = Root.SelectToken("$.EventList...[?(@.Start_time == '" + Root.SelectTokens("$.EventList...Start_time").Max() + "')].Status").ToString();
-
-                    if (Task_Type != "PE")
-                    {
-
-                        this.Dispatcher.Invoke(() =>
-                        {
-                            if (Task_Status == "Started" || Task_Status == "Completed")
-                            {
-                                notifyIcon.ShowBalloonTip(Task_Type + " Notification", Task + " " + Task_Status + " at " + (DateTime.Parse(me) > DateTime.Parse(ms) ? me : ms), BalloonIcon.Info);
-                            }
-                            else if (Task_Status == "Stop_Fail" || Task_Status == "File_Not_Found")
-                            {
-                                notifyIcon.ShowBalloonTip(Task_Type + " Notification", Task + " " + Task_Status + " at " + (DateTime.Parse(me) > DateTime.Parse(ms) ? me : ms), BalloonIcon.Warning);
-                            }
-                            else
-                            {
-                                notifyIcon.ShowBalloonTip(Task_Type + " Notification", Task + " " + Task_Status + " at " + (DateTime.Parse(me) > DateTime.Parse(ms) ? me : ms), BalloonIcon.Error);
-                            }
-                        });
-                    }
-                    else
-                    {
-                        int value = (int)Root.SelectToken("$.EventList...[?(@.Start_time == '" + ms + "')].Value");
-                        if (Task_Status == "Warning")
-                        {
-                            notifyIcon.ShowBalloonTip(Task_Type + " Notification", "The Number of Bound States for " + Task.Split(':')[1] + " in the server  " + Task.Split(':')[0] + " are " + value.ToString(), BalloonIcon.Warning);
-                        }
-                        else if (Task_Status == "Error")
-                        {
-                            notifyIcon.ShowBalloonTip(Task_Type + " Notification", "The Number of Bound States for " + Task.Split(':')[1] + " in the server  " + Task.Split(':')[0] + " are " + value.ToString(), BalloonIcon.Error);
-                        }
+                        lf();
                     }
 
+                    //if (DateTime.Parse(me) > DateTime.Parse(ms))
+                    //{
+                    //    Task = Root.SelectToken("$.EventList...[?(@.End_time == '" + me + "')].TaskID").ToString();
+                    //    Task_Status = Root.SelectToken("$.EventList...[?(@.End_time == '" + me + "')].Status").ToString();
+                    //    Task_Type = ((JProperty)((JToken)((JToken)Root.SelectTokens("$.EventList...[?(@.End_time == '" + me + "')].End_time").Max()).Parent.Parent.Parent.Parent.Parent.Parent)).Name;
+                    //    lf();
+                    //}
+                    //else
+                    //{
+                    //    Task = Root.SelectToken("$.EventList...[?(@.Start_time == '" + ms + "')].TaskID").ToString();
+                    //    Task_Status = Root.SelectToken("$.EventList...[?(@.Start_time == '" + ms + "')].Status").ToString();
+                    //    Task_Type = ((JProperty)((JToken)((JToken)Root.SelectTokens("$.EventList...[?(@.Start_time == '" + ms + "')].Start_time").Max()).Parent.Parent.Parent.Parent.Parent.Parent)).Name;
+                    //    lf();
+                    //}
 
-                    if (Task_Type == "NFS")
-                    {
-                        NFS_result(data);
-                    }
-                    else if (Task_Type == "ReadingCollection")
-                    {
-                        Reading_result(data);
-                    }
-                    else { PE_result(data); }
                 }
                 lastwrite = writetime;
             }
@@ -152,7 +191,7 @@ namespace GMO_Monitoring
         public void Reading_result(string data = null)
         {
 
-            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
+            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_RC_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             if (data == null & File.Exists(path))
             {
 
@@ -172,6 +211,9 @@ namespace GMO_Monitoring
             if (data != null)
             {
                 JObject Reading_status = JsonConvert.DeserializeObject<JObject>(data);
+                string RCSummary = Reading_status.SelectToken("$.EventList.ReadingCollection.Task").ToString();
+                TSdata RCdata = JsonConvert.DeserializeObject<TSdata>(RCSummary);
+                this.Resources["RCBarData"] = RCdata;
                 IEnumerable<JToken> Failed = Reading_status.SelectTokens("$.EventList.ReadingCollection..[?(@.Status == 'Failed')].Start_time");
                 IEnumerable<JToken> Stop_Fail = Reading_status.SelectTokens("$.EventList.ReadingCollection..[?(@.Status == 'Stop_Fail')].Start_time");
                 IEnumerable<JToken> Started = Reading_status.SelectTokens("$.EventList.ReadingCollection..[?(@.Status == 'Started')].Start_time");
@@ -212,7 +254,7 @@ namespace GMO_Monitoring
         public void NFS_result(string data = null)
         {
 
-            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
+            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_NFS_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             if (data == null & File.Exists(path))
             {
 
@@ -272,7 +314,7 @@ namespace GMO_Monitoring
         public void PE_result(string data = null)
         {
 
-            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
+            string path = ConfigurationManager.AppSettings.Get("Summary_Logs") + "\\Summary_PE_" + DateTime.Today.ToString("yyyy") + DateTime.Today.ToString("MM") + DateTime.Today.ToString("dd") + ".json";
             if (data == null & File.Exists(path))
             {
 
@@ -344,7 +386,7 @@ namespace GMO_Monitoring
                 });
 
 
-                RC();
+                RC(fe.FullPath);
             }
             catch (Exception error)
             {
@@ -391,7 +433,7 @@ namespace GMO_Monitoring
                 Watcher.Error += Onerror;
                 Watcher.IncludeSubdirectories = true;
                 Watcher.EnableRaisingEvents = true;
-                RC();
+                RC(Directory.GetFiles(ConfigurationManager.AppSettings.Get("Summary_Logs")).OrderByDescending(d => new FileInfo(d).LastWriteTime).ElementAt(0));
                 Reading_result();
                 NFS_result();
                 PE_result();
