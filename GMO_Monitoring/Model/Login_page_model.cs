@@ -58,7 +58,7 @@ namespace GMO_Monitoring.Model
                 SearchResult results;
                 DirectoryEntry de = Dispatcher.Invoke(() =>
                 {
-                   return new DirectoryEntry("LDAP://prod_dc1.amo.edf.local", UN.Text, PW.Password);
+                   return new DirectoryEntry(ConfigurationManager.AppSettings.Get("AD_URL"), UN.Text, PW.Password);
                 });
                 DirectorySearcher dsearch = new DirectorySearcher(de);
                 results = dsearch.FindOne();                
